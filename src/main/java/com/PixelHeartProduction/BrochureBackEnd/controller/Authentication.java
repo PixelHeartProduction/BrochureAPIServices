@@ -1,6 +1,8 @@
 package com.PixelHeartProduction.BrochureBackEnd.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,9 +19,11 @@ public class Authentication {
 		
 		
 		@PostMapping("/login")
-		public AuthenticatedUser generateToken(@RequestBody AuthRequest authRequest) throws Exception {
-			
-			 getUserAndTokenService.setAuthUser(authRequest);
-			return getUserAndTokenService.setAuthUser(authRequest);
+		public ResponseEntity<?> generateToken(@RequestBody AuthRequest authRequest) throws Exception {
+			try {
+				return new ResponseEntity<AuthenticatedUser>(getUserAndTokenService.setAuthUser(authRequest),HttpStatus.OK);
+			} catch(Exception e) {
+				return new ResponseEntity<String>(e.getMessage(),HttpStatus.FORBIDDEN);
+			}
 		}
 }
