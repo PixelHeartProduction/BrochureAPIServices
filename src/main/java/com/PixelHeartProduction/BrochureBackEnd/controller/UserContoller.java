@@ -3,6 +3,7 @@ package com.PixelHeartProduction.BrochureBackEnd.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,10 +21,14 @@ public class UserContoller {
 
 		@Autowired
 		private UserRepository userRepository;
+		
+		@Autowired
+		private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
-		//register a user
+		//register a user and encode the password
 		@PostMapping("/register")
 		public User registerUser(@RequestBody User user) {
+			user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 			return userRepository.save(user);
 		}
 		
