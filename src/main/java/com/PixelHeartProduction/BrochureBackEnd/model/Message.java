@@ -5,6 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.sun.istack.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,10 +21,15 @@ public class Message {
 	@Id
 	@GeneratedValue
 	private long id;
+	@NotNull
 	private String name;
+	@NotNull
 	private String email;
+	@NotNull
 	private String title;
+	@NotNull
 	private String date;
+	@NotNull
 	private String message;
 	
 	public long getId() {
